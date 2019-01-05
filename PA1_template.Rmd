@@ -7,13 +7,19 @@ output:
 
 
 ## Loading and preprocessing the data
-```{r echo=TRUE}
+```{r echo=T}
 unzip("activity.zip")
-Activity <- read.csv("activity.csv",header = TRUE, stringsAsFactors = FALSE)
+Activity <- read.csv("activity.csv",header = T, stringsAsFactors = F)
+Activity <- transform(Activity, date = as.Date(date))
 ```
 
 ## What is mean total number of steps taken per day?
-
+```{r echo=T,results='asis'}
+TotalStepsPerDay <- tapply(Activity$steps, Activity$date, sum, na.rm=T)
+mean(TotalStepsPerDay)
+median(TotalStepsPerDay)
+hist(TotalStepsPerDay)
+```
 
 
 ## What is the average daily activity pattern?
